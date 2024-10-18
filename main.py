@@ -19,6 +19,7 @@ I tried to make these choices to keep things working well, easy to understand, a
 """
 import os
 import argparse
+from tqdm import tqdm
 
 import llm
 import agents
@@ -33,7 +34,7 @@ parser = argparse.ArgumentParser(description="Configure conversation simulation 
 parser.add_argument("--output_dir", type=str, default="output", help="Output directory for generated files")
 parser.add_argument("--agent_1_config_name", type=str, default="willard", help="Configuration name for the first agent")
 parser.add_argument("--agent_2_config_name", type=str, default="jimmy", help="Configuration name for the second agent")
-parser.add_argument("--number_of_years", type=int, default=1, help="Number of years to simulate conversations")
+parser.add_argument("--number_of_years", type=int, default=50, help="Number of years to simulate conversations")
 parser.add_argument("--audioclass_name", type=str, default="OpenAIAudioGen", help="Name of the audio generation class")
 parser.add_argument("--orchestratorclass_name", type=str, default="FriendConvoOrchestrator", help="Name of the orchestrator class")
 parser.add_argument("--llm_name", type=str, default="gpt4o", help="Name of the language model to use")
@@ -75,7 +76,7 @@ audio_generator.assign_voices()
 world_orchestrator = orchestrator.get_orchestrator(args.orchestratorclass_name, llm_obj, [agent1,agent2])
 
 # Now iterate through and have conversations 
-for year_idx in range(args.number_of_years): 
+for year_idx in tqdm(range(args.number_of_years), desc="Simulating years", unit="year"):
     current_year = year_idx + 2024
     for k, date in enumerate(['January 1st', 'April 1st', 'July 1st', 'October 1st']):
         date_int = year_idx*10+k
