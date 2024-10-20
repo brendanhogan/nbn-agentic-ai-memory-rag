@@ -77,7 +77,9 @@ class GPT4O(LLM):
                     model="gpt-4o",
                     messages=conversations
                 )
-                return response.choices[0].message.content
+                response_content = response.choices[0].message.content
+                assert response_content is not None, "GPT-4 response content is None"
+                return response_content
             except Exception as e:
                 if attempt == max_retries - 1:
                     print(f"Failed to make GPT-4 call after {max_retries} attempts: {e}")
@@ -111,8 +113,6 @@ class GPT4O(LLM):
                     audio={"voice": voice_name, "format": "wav"},
                     messages=conversations
                 )
-                print(response)
-                print(response.choices[0].message.audio.transcript)
 
                 wav_bytes = base64.b64decode(response.choices[0].message.audio.data)
                 output_file_name = os.path.join(output_dir, f"{count}.wav")
