@@ -27,7 +27,7 @@ This project simulates long-term conversations between two AI agents over a 50-y
 
 This project is part of a blog post exploring the implications of long-term AI interactions. For more details, please check out the full blog post:
 
-[Read the full blog post](https://www.google.com)
+[Read the full blog post](https://neuron-by-neuron.ghost.io/part-ii-agentic-conversations-with-memories/)
 
 Key features:
 - Agents converse 4 times a year, building a rich history of interactions.
